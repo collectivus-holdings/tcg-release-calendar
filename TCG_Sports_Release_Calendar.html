@@ -437,18 +437,16 @@ td.c-size {
 .sz4 { color: var(--today-bar); }
 
 /* ── ROW CATEGORY BORDERS ── */
-.cal-row.cat-tcg    { border-left: 3px solid var(--accent); }
-.cal-row.cat-sports { border-left: 3px solid var(--today-bar); }
-.cal-row.cat-tcg td.c-date    { padding-left: 11px; }
-.cal-row.cat-sports td.c-date { padding-left: 11px; }
+.cal-row.cat-tcg    { border-left: 4px solid var(--accent); }
+.cal-row.cat-sports { border-left: 4px solid var(--today-bar); }
+.cal-row.cat-tcg td.c-date    { padding-left: 10px; }
+.cal-row.cat-sports td.c-date { padding-left: 10px; }
 
 /* ── SIZE TOOLTIP ── */
 .sz-tip {
   position: relative;
-  cursor: help;
 }
-.sz-tip::after {
-  content: '?';
+.sz-tip-q {
   font-family: 'DM Mono', monospace;
   font-size: 8px;
   font-weight: 500;
@@ -460,10 +458,11 @@ td.c-size {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 4px;
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
+  margin-left: 3px;
+  vertical-align: 1px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .sz-popup {
   display: none;
@@ -482,9 +481,11 @@ td.c-size {
   white-space: nowrap;
   z-index: 300;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
 }
-.sz-tip:hover .sz-popup,
-.sz-tip:focus-within .sz-popup { display: block; }
+.sz-popup.open { display: block; }
 .sz-popup-row { display: flex; align-items: center; gap: 8px; }
 .sz-popup-row .sz { min-width: 36px; text-align: right; }
 
@@ -658,8 +659,8 @@ td.c-size {
           <th>Product</th>
           <th class="hide-mob" style="width:120px">Type</th>
           <th class="hide-mob" style="width:68px">Channel</th>
-          <th class="r sz-tip" style="width:62px" tabindex="0">Size
-            <div class="sz-popup">
+          <th class="r sz-tip" style="width:62px">Size<span class="sz-tip-q" onclick="toggleSzPopup(event)">?</span>
+            <div class="sz-popup" id="sz-popup">
               <div class="sz-popup-row"><span class="sz sz1">$</span> Collectors only</div>
               <div class="sz-popup-row"><span class="sz sz2">$$</span> Niche / hobby</div>
               <div class="sz-popup-row"><span class="sz sz3">$$$</span> Mainline flagship</div>
@@ -1175,6 +1176,13 @@ function setSportSel(v){
   }
   render();
 }
+
+// Size tooltip toggle (Safari-safe)
+function toggleSzPopup(e){
+  e.stopPropagation();
+  document.getElementById('sz-popup').classList.toggle('open');
+}
+document.addEventListener('click', function(){ document.getElementById('sz-popup').classList.remove('open'); });
 
 // Render alerts
 (function renderAlerts(){
