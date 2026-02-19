@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TCG & Sports Release Calendar 2024–2027</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='22' width='76' height='66' rx='8' fill='%231a5c36'/><rect x='18' y='38' width='64' height='44' rx='4' fill='%23fff'/><rect x='28' y='12' width='6' height='20' rx='3' fill='%231a5c36'/><rect x='66' y='12' width='6' height='20' rx='3' fill='%231a5c36'/><circle cx='38' cy='58' r='5' fill='%231a5c36' opacity='.6'/><circle cx='62' cy='58' r='5' fill='%23b5860d'/><circle cx='50' cy='70' r='4' fill='%231a5c36' opacity='.3'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
@@ -286,7 +287,7 @@ body {
 .cal-row:hover { background: var(--surface2); }
 .cal-row.past { opacity: 0.6; }
 .cal-row.soon { background: var(--today-bg); }
-.cal-row.soon td.c-date { border-left: 3px solid var(--today-bar); padding-left: 11px; }
+.cal-row.soon { border-left-color: var(--today-bar); }
 
 /* cells */
 td { vertical-align: middle; }
@@ -435,6 +436,77 @@ td.c-size {
 .sz3 { color: var(--text2); }
 .sz4 { color: var(--today-bar); }
 
+/* ── ROW CATEGORY BORDERS ── */
+.cal-row.cat-tcg    { border-left: 3px solid var(--accent); }
+.cal-row.cat-sports { border-left: 3px solid var(--today-bar); }
+.cal-row.cat-tcg td.c-date    { padding-left: 11px; }
+.cal-row.cat-sports td.c-date { padding-left: 11px; }
+
+/* ── SIZE TOOLTIP ── */
+.sz-tip {
+  position: relative;
+  cursor: help;
+}
+.sz-tip::after {
+  content: '?';
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--border2);
+  border: 1px solid var(--border2);
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.sz-popup {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+  line-height: 1.8;
+  white-space: nowrap;
+  z-index: 300;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.sz-tip:hover .sz-popup,
+.sz-tip:focus-within .sz-popup { display: block; }
+.sz-popup-row { display: flex; align-items: center; gap: 8px; }
+.sz-popup-row .sz { min-width: 36px; text-align: right; }
+
+/* ── MOBILE SELECTS (hidden on desktop) ── */
+.mob-select {
+  display: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: var(--faint);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text2);
+  padding: 5px 8px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b6860' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 24px;
+}
+
 /* ── FOOTER ── */
 .site-footer {
   background: var(--surface);
@@ -452,6 +524,12 @@ td.c-size {
 .footer-note { margin-left: auto; font-size: 9px; }
 
 /* ── MOBILE ── */
+@media (max-width: 900px) {
+  /* swap segmented controls for selects on game/sport rows */
+  #seg-game, #seg-sport { display: none; }
+  .mob-select { display: inline-block; }
+}
+
 @media (max-width: 700px) {
   .site-header { padding: 12px 14px 10px; }
   .header-title { font-size: 20px; }
@@ -469,6 +547,8 @@ td.c-size {
   .cal-table td.hide-mob { display: none; }
 
   td.c-date { padding: 9px 4px 9px 10px; font-size: 10px; width: 56px; }
+  .cal-row.cat-tcg td.c-date,
+  .cal-row.cat-sports td.c-date { padding-left: 7px; }
   td.c-label { width: 80px; padding: 9px 4px 9px 2px; }
   .glabel { font-size: 11px; gap: 3px; }
   .glabel-emoji { font-size: 12px; }
@@ -498,7 +578,7 @@ td.c-size {
 <header class="site-header">
   <div class="header-row1">
     <div class="header-title">TCG <em>&</em> Sports Release Calendar</div>
-    <div class="header-meta">2024–2027 · Updated Feb 18, 2026</div>
+    <div class="header-meta">2024–2027 · Updated Feb 19, 2026</div>
     <button class="btn-today" onclick="jumpToToday()">↓ Today</button>
   </div>
 
@@ -522,6 +602,17 @@ td.c-size {
       <button           data-v="yugioh"     onclick="setGame('yugioh',this)">🃏 Yu-Gi-Oh!</button>
       <button           data-v="onepiece"   onclick="setGame('onepiece',this)">🏴‍☠️ One Piece</button>
     </div>
+    <select class="mob-select" id="sel-game" onchange="setGameSel(this.value)">
+      <option value="all">All TCG</option>
+      <option value="pokemon">⚡ Pokémon</option>
+      <option value="magic">🔮 Magic</option>
+      <option value="lorcana">✨ Lorcana</option>
+      <option value="swu">⚔️ Star Wars</option>
+      <option value="fab">🗡️ F&B</option>
+      <option value="riftbound">🌀 Riftbound</option>
+      <option value="yugioh">🃏 Yu-Gi-Oh!</option>
+      <option value="onepiece">🏴‍☠️ One Piece</option>
+    </select>
   </div>
 
   <div class="filter-row">
@@ -533,16 +624,28 @@ td.c-size {
       <button           data-v="football"    onclick="setSport('football',this)">🏈 Football</button>
       <button           data-v="hockey"      onclick="setSport('hockey',this)">🏒 Hockey</button>
       <button           data-v="soccer"      onclick="setSport('soccer',this)">⚽ Soccer</button>
+      <button           data-v="golf"        onclick="setSport('golf',this)">⛳ Golf</button>
+      <button           data-v="multisport"  onclick="setSport('multisport',this)">🏅 Multi</button>
+      <button           data-v="wnba"        onclick="setSport('wnba',this)">🏀 WNBA</button>
     </div>
+    <select class="mob-select" id="sel-sport" onchange="setSportSel(this.value)">
+      <option value="all">All Sports</option>
+      <option value="baseball">⚾ Baseball</option>
+      <option value="basketball">🏀 Basketball</option>
+      <option value="football">🏈 Football</option>
+      <option value="hockey">🏒 Hockey</option>
+      <option value="soccer">⚽ Soccer</option>
+      <option value="golf">⛳ Golf</option>
+      <option value="multisport">🏅 Multi</option>
+      <option value="wnba">🏀 WNBA</option>
+    </select>
 
     <button class="btn-past" id="btn-past" onclick="togglePast()">Past Hidden</button>
     <span class="count-label" id="count-lbl"></span>
   </div>
 </header>
 
-<div class="alert">
-  ⚠ LICENSE SHIFT — Topps/Fanatics takes over NFL exclusive Apr 2026 · Topps now holds NBA exclusive (2025–26+) · Panini retains WNBA, NIL, some soccer
-</div>
+<div id="alert-wrap"></div>
 
 <div class="cal-wrap">
   <div class="cal-card">
@@ -555,7 +658,15 @@ td.c-size {
           <th>Product</th>
           <th class="hide-mob" style="width:120px">Type</th>
           <th class="hide-mob" style="width:68px">Channel</th>
-          <th class="r" style="width:62px">Size</th>
+          <th class="r sz-tip" style="width:62px" tabindex="0">Size
+            <div class="sz-popup">
+              <div class="sz-popup-row"><span class="sz sz1">$</span> Collectors only</div>
+              <div class="sz-popup-row"><span class="sz sz2">$$</span> Niche / hobby</div>
+              <div class="sz-popup-row"><span class="sz sz3">$$$</span> Mainline flagship</div>
+              <div class="sz-popup-row"><span class="sz sz4">$$$$</span> Category killer</div>
+              <div style="margin-top:6px;font-size:9px;color:var(--muted)">Market impact, not price</div>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody id="cal-body"></tbody>
@@ -573,6 +684,13 @@ td.c-size {
 </footer>
 
 <script>
+// ─────────────────────────────────────────────────────
+// ALERTS — add/remove entries here; auto-rendered
+// ─────────────────────────────────────────────────────
+const ALERTS = [
+  { text: '⚠ LICENSE SHIFT — Topps/Fanatics takes over NFL exclusive Apr 2026 · Topps now holds NBA exclusive (2025–26+) · Panini retains WNBA, NIL, some soccer', start: '2025-01-01', end: '2026-12-31' },
+];
+
 // ─────────────────────────────────────────────────────
 // HELPERS
 // ─────────────────────────────────────────────────────
@@ -879,7 +997,7 @@ function render(){
     }
 
     // Row classes
-    const cls = ['cal-row', past?'past':'', isSoon(row.date)?'soon':''].filter(Boolean).join(' ');
+    const cls = ['cal-row', 'cat-'+row._cat, past?'past':'', isSoon(row.date)?'soon':''].filter(Boolean).join(' ');
 
     // Label pill
     let pill = '';
@@ -967,6 +1085,7 @@ function setGame(v,btn){
   gameF=v;
   document.querySelectorAll('#seg-game button').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
+  document.getElementById('sel-game').value = v;
   // selecting a specific game: auto-collapse sports; selecting All: restore both
   if(v !== 'all'){
     catF = 'tcg';
@@ -975,6 +1094,7 @@ function setGame(v,btn){
     document.querySelector('#seg-cat button[data-v="tcg"]').classList.add('on');
     document.querySelectorAll('#seg-sport button').forEach(b=>b.classList.remove('on'));
     document.querySelector('#seg-sport button[data-v="all"]').classList.add('on');
+    document.getElementById('sel-sport').value = 'all';
   } else if(catF === 'tcg'){
     catF = 'all';
     document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
@@ -986,6 +1106,7 @@ function setSport(v,btn){
   sportF=v;
   document.querySelectorAll('#seg-sport button').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
+  document.getElementById('sel-sport').value = v;
   // selecting a specific sport: auto-collapse TCG; selecting All: restore both
   if(v !== 'all'){
     catF = 'sports';
@@ -994,6 +1115,7 @@ function setSport(v,btn){
     document.querySelector('#seg-cat button[data-v="sports"]').classList.add('on');
     document.querySelectorAll('#seg-game button').forEach(b=>b.classList.remove('on'));
     document.querySelector('#seg-game button[data-v="all"]').classList.add('on');
+    document.getElementById('sel-game').value = 'all';
   } else if(catF === 'sports'){
     catF = 'all';
     document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
@@ -1012,6 +1134,60 @@ function jumpToToday(){
   const el=document.getElementById('today-anchor');
   if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
 }
+
+// Mobile select handlers — mirror the seg button logic
+function setGameSel(v){
+  gameF = v;
+  // sync desktop buttons
+  document.querySelectorAll('#seg-game button').forEach(b=>b.classList.remove('on'));
+  const match = document.querySelector(`#seg-game button[data-v="${v}"]`);
+  if(match) match.classList.add('on');
+  if(v !== 'all'){
+    catF = 'tcg'; sportF = 'all';
+    document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-cat button[data-v="tcg"]').classList.add('on');
+    document.querySelectorAll('#seg-sport button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-sport button[data-v="all"]').classList.add('on');
+    document.getElementById('sel-sport').value = 'all';
+  } else if(catF === 'tcg'){
+    catF = 'all';
+    document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-cat button[data-v="all"]').classList.add('on');
+  }
+  render();
+}
+function setSportSel(v){
+  sportF = v;
+  document.querySelectorAll('#seg-sport button').forEach(b=>b.classList.remove('on'));
+  const match = document.querySelector(`#seg-sport button[data-v="${v}"]`);
+  if(match) match.classList.add('on');
+  if(v !== 'all'){
+    catF = 'sports'; gameF = 'all';
+    document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-cat button[data-v="sports"]').classList.add('on');
+    document.querySelectorAll('#seg-game button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-game button[data-v="all"]').classList.add('on');
+    document.getElementById('sel-game').value = 'all';
+  } else if(catF === 'sports'){
+    catF = 'all';
+    document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-cat button[data-v="all"]').classList.add('on');
+  }
+  render();
+}
+
+// Render alerts
+(function renderAlerts(){
+  const wrap = document.getElementById('alert-wrap');
+  const now = TODAY.getTime();
+  let html = '';
+  for(const a of ALERTS){
+    const s = a.start ? new Date(a.start+'T00:00:00').getTime() : 0;
+    const e = a.end   ? new Date(a.end+'T00:00:00').getTime()   : Infinity;
+    if(now >= s && now <= e) html += `<div class="alert">${a.text}</div>`;
+  }
+  wrap.innerHTML = html;
+})();
 
 render();
 </script>
