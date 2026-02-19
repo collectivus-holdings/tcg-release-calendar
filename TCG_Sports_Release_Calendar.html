@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TCG & Sports Release Calendar 2024–2027</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='22' width='76' height='66' rx='8' fill='%231a5c36'/><rect x='18' y='38' width='64' height='44' rx='4' fill='%23fff'/><rect x='28' y='12' width='6' height='20' rx='3' fill='%231a5c36'/><rect x='66' y='12' width='6' height='20' rx='3' fill='%231a5c36'/><circle cx='38' cy='58' r='5' fill='%231a5c36' opacity='.6'/><circle cx='62' cy='58' r='5' fill='%23b5860d'/><circle cx='50' cy='70' r='4' fill='%231a5c36' opacity='.3'/></svg>">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA3ElEQVR4nGNgGAWjgEggFWP2nxbqmUgxjFhDSVHPxDDAgJFaQU4MeLbkFCNRISBFA8txmctEL8txmc/EMMCAaaAdwIJP8unik1SzSDrWnLQQeEpFy/GZx8QwwIBp1AEMJALpWPNZIIxLfls7HxjTxAHSSBZjcwSyxcQ6golhgAETKYqfLj6Zho0NA16Vn7CyyS6IsAFsFiMDYi2mWhRIx5r7gTC5+pkotRwbm24OoAZgokTz08UnN2FjkwJYKHEAJRbjDIFn0HYbruqTXAAzD71dyDjQjdJRwDDQAADhGEseTgzl6gAAAABJRU5ErkJggg==">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
@@ -437,16 +437,20 @@ td.c-size {
 .sz4 { color: var(--today-bar); }
 
 /* ── ROW CATEGORY BORDERS ── */
-.cal-row.cat-tcg    { border-left: 4px solid var(--accent); }
-.cal-row.cat-sports { border-left: 4px solid var(--today-bar); }
-.cal-row.cat-tcg td.c-date    { padding-left: 10px; }
-.cal-row.cat-sports td.c-date { padding-left: 10px; }
+.cal-row.cat-tcg    { border-left: 5px solid var(--accent); }
+.cal-row.cat-sports { border-left: 5px solid var(--today-bar); }
+.cal-row.cat-tcg td.c-date    { padding-left: 9px; }
+.cal-row.cat-sports td.c-date { padding-left: 9px; }
 
 /* ── SIZE TOOLTIP ── */
 .sz-tip {
   position: relative;
 }
 .sz-tip-q {
+  position: absolute;
+  top: 50%;
+  margin-top: -6px;
+  margin-left: 3px;
   font-family: 'DM Mono', monospace;
   font-size: 8px;
   font-weight: 500;
@@ -458,8 +462,6 @@ td.c-size {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 3px;
-  vertical-align: 1px;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
