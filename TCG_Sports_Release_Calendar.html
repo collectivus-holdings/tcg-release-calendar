@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCG & Sports Release Calendar 2024–2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg:       #f0efe9;
+  --surface:  #ffffff;
+  --surface2: #f7f6f1;
+  --border:   #d8d6ce;
+  --border2:  #b8b5aa;
+  --text:     #111110;
+  --text2:    #3a3935;
+  --muted:    #6b6860;
+  --faint:    #e4e2da;
+  --accent:   #1a5c36;
+  --today-bg: #fffbeb;
+  --today-bar:#b5860d;
+
+  /* Game label colors — strong enough to read on white */
+  --c-pokemon:   #b07a00;
+  --c-magic:     #5535a8;
+  --c-lorcana:   #0e6fa0;
+  --c-swu:       #b83018;
+  --c-fab:       #a05c10;
+  --c-riftbound: #0a7a62;
+  --c-yugioh:    #4030a0;
+  --c-onepiece:  #b01010;
+
+  --bg-pokemon:   #fff8e0;
+  --bg-magic:     #f0ecff;
+  --bg-lorcana:   #e5f4ff;
+  --bg-swu:       #fff0ed;
+  --bg-fab:       #fff4e5;
+  --bg-riftbound: #e5f9f4;
+  --bg-yugioh:    #eeecff;
+  --bg-onepiece:  #ffecec;
+
+  /* Sport colors */
+  --c-baseball:   #9e2020;
+  --c-basketball: #b84c10;
+  --c-football:   #0c5a9e;
+  --c-hockey:     #0878a0;
+  --c-soccer:     #1a6635;
+  --c-multisport: #5535a8;
+  --c-golf:       #2a6018;
+  --c-wnba:       #b84c10;
+
+  --bg-baseball:   #ffecec;
+  --bg-basketball: #fff4ed;
+  --bg-football:   #e8f2ff;
+  --bg-hockey:     #e5f5ff;
+  --bg-soccer:     #e8f5ec;
+  --bg-multisport: #f0ecff;
+  --bg-golf:       #edf5e8;
+  --bg-wnba:       #fff4ed;
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  padding: 16px 20px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.header-row1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 1.5px;
+  color: var(--text);
+  line-height: 1;
+  white-space: nowrap;
+}
+.header-title em { color: var(--accent); font-style: normal; }
+
+.header-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+
+.btn-today {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.btn-today:hover { background: #134428; }
+
+/* ── FILTER ROWS ── */
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.filter-row + .filter-row { margin-top: 6px; }
+
+.fl {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  padding-right: 4px;
+  white-space: nowrap;
+}
+
+/* segmented control group */
+.seg {
+  display: inline-flex;
+  background: var(--faint);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.seg button {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border);
+  color: var(--muted);
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.12s;
+  white-space: nowrap;
+  line-height: 1;
+}
+.seg button:last-child { border-right: none; }
+.seg button:hover { background: var(--border); color: var(--text); }
+.seg button.on {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  box-shadow: inset 0 0 0 1px var(--border2);
+}
+
+/* past toggle */
+.btn-past {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: var(--faint);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.12s;
+  white-space: nowrap;
+}
+.btn-past:hover { border-color: var(--border2); color: var(--text); }
+.btn-past.on { background: var(--surface); color: var(--text); border-color: var(--border2); font-weight:500; }
+
+.count-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ── ALERT ── */
+.alert {
+  background: #fffaeb;
+  border-bottom: 1px solid #e8d070;
+  padding: 7px 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #7a5800;
+  line-height: 1.5;
+}
+
+/* ── TABLE WRAPPER ── */
+.cal-wrap {
+  max-width: 1080px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+.cal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: clip;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* ── TABLE ── */
+.cal-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* column header */
+.cal-table thead th {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  background: var(--surface2);
+  border-bottom: 2px solid var(--border);
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 400;
+  position: sticky;
+  top: 122px;
+  z-index: 10;
+}
+.cal-table thead th.r { text-align: right; }
+
+/* year row */
+.yr-row td {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  background: var(--surface2);
+  padding: 8px 14px 5px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+}
+.yr-row.proj td { color: #b0aea6; letter-spacing: 4px; }
+
+/* today marker */
+.today-row td { padding: 0; border-bottom: none; }
+.today-bar {
+  background: var(--today-bar);
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  padding: 4px 14px;
+}
+
+/* data row */
+.cal-row {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.cal-row:last-child { border-bottom: none; }
+.cal-row:hover { background: var(--surface2); }
+.cal-row.past { opacity: 0.6; }
+.cal-row.soon { background: var(--today-bg); }
+.cal-row.soon td.c-date { border-left: 3px solid var(--today-bar); padding-left: 11px; }
+
+/* cells */
+td { vertical-align: middle; }
+
+td.c-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  padding: 9px 6px 9px 14px;
+  white-space: nowrap;
+  width: 68px;
+}
+td.c-date.dim { color: var(--muted); }
+
+td.c-pre {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  padding: 9px 8px;
+  white-space: nowrap;
+  width: 86px;
+}
+.pre-lbl {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.5px;
+  color: var(--border2);
+  margin-bottom: 1px;
+}
+
+td.c-label {
+  padding: 9px 6px 9px 4px;
+  width: 96px;
+}
+/* game/sport label — plain text, colored */
+.glabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+.glabel-emoji {
+  font-size: 12px;
+  line-height: 1;
+}
+.glabel-text {
+  font-size: 11px;
+}
+
+td.c-product {
+  padding: 9px 8px;
+}
+.p-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+}
+.p-name a {
+  color: inherit;
+  text-decoration: none;
+}
+.p-name a:hover { color: var(--row-color, var(--accent)); text-decoration: underline; }
+.p-name.est { color: var(--muted); font-weight: 400; font-style: italic; }
+.est-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  padding: 1px 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.p-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 1px;
+  display: block;
+}
+
+/* flag badges */
+.flag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-left: 6px;
+  vertical-align: middle;
+  font-style: normal;
+  letter-spacing: 0.3px;
+}
+.flag-last     { background: #fde8e8; color: #9e2020; }
+.flag-first    { background: #e6f4ec; color: #1a5c36; }
+.flag-tentpole { background: #fff3d0; color: #8a6000; }
+
+td.c-type {
+  padding: 9px 8px;
+  width: 120px;
+}
+.type-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text2);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+td.c-ch {
+  padding: 9px 8px;
+  width: 68px;
+}
+.ch-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text2);
+  display: inline-block;
+}
+
+td.c-size {
+  padding: 9px 16px 9px 8px;
+  text-align: right;
+  width: 62px;
+  white-space: nowrap;
+}
+.sz {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+}
+.sz1 { color: #b8b5aa; }
+.sz2 { color: #888480; }
+.sz3 { color: var(--text2); }
+.sz4 { color: var(--today-bar); }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+.sz-leg { display: flex; align-items: center; gap: 5px; }
+.footer-note { margin-left: auto; font-size: 9px; }
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .site-header { padding: 12px 14px 10px; }
+  .header-title { font-size: 20px; }
+  .header-meta { display: none; }
+
+  /* stack filter rows */
+  .filter-row { gap: 4px; }
+  .seg button { font-size: 10px; padding: 5px 7px; }
+  .btn-past { font-size: 10px; padding: 5px 8px; }
+  .count-label { display: none; }
+  .fl { display: none; }
+
+  /* hide less important columns */
+  .cal-table thead th.hide-mob,
+  .cal-table td.hide-mob { display: none; }
+
+  td.c-date { padding: 9px 4px 9px 10px; font-size: 10px; width: 56px; }
+  td.c-label { width: 80px; padding: 9px 4px 9px 2px; }
+  .glabel { font-size: 11px; gap: 3px; }
+  .glabel-emoji { font-size: 12px; }
+  .glabel-text { font-size: 10px; }
+  td.c-product { padding: 9px 6px; }
+  .p-name { font-size: 12px; }
+  .p-sub { font-size: 9px; }
+  td.c-size { padding: 9px 10px 9px 4px; }
+  .sz { font-size: 12px; }
+
+  .cal-wrap { margin: 12px auto; padding: 0 10px; }
+  .alert { font-size: 9px; padding: 6px 14px; }
+
+  .site-footer { gap: 10px; padding: 10px 14px; }
+  .footer-note { display: none; }
+}
+
+@media (max-width: 420px) {
+  .header-title { font-size: 17px; letter-spacing: 1px; }
+  .btn-today { font-size: 10px; padding: 5px 10px; }
+  .seg button { padding: 5px 6px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-row1">
+    <div class="header-title">TCG <em>&</em> Sports Release Calendar</div>
+    <div class="header-meta">2024–2027 · Updated Feb 18, 2026</div>
+    <button class="btn-today" onclick="jumpToToday()">↓ Today</button>
+  </div>
+
+  <div class="filter-row">
+    <span class="fl">View</span>
+    <div class="seg" id="seg-cat">
+      <button class="on" data-v="all"    onclick="setCat('all',this)">All</button>
+      <button           data-v="tcg"    onclick="setCat('tcg',this)">TCG Only</button>
+      <button           data-v="sports" onclick="setCat('sports',this)">Sports Only</button>
+    </div>
+
+    <span class="fl" style="margin-left:8px">TCG</span>
+    <div class="seg" id="seg-game">
+      <button class="on" data-v="all"       onclick="setGame('all',this)">All</button>
+      <button           data-v="pokemon"    onclick="setGame('pokemon',this)">⚡ Pokémon</button>
+      <button           data-v="magic"      onclick="setGame('magic',this)">🔮 Magic</button>
+      <button           data-v="lorcana"    onclick="setGame('lorcana',this)">✨ Lorcana</button>
+      <button           data-v="swu"        onclick="setGame('swu',this)">⚔️ Star Wars</button>
+      <button           data-v="fab"        onclick="setGame('fab',this)">🗡️ F&amp;B</button>
+      <button           data-v="riftbound"  onclick="setGame('riftbound',this)">🌀 Riftbound</button>
+      <button           data-v="yugioh"     onclick="setGame('yugioh',this)">🃏 Yu-Gi-Oh!</button>
+      <button           data-v="onepiece"   onclick="setGame('onepiece',this)">🏴‍☠️ One Piece</button>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <span class="fl">Sport</span>
+    <div class="seg" id="seg-sport">
+      <button class="on" data-v="all"        onclick="setSport('all',this)">All</button>
+      <button           data-v="baseball"    onclick="setSport('baseball',this)">⚾ Baseball</button>
+      <button           data-v="basketball"  onclick="setSport('basketball',this)">🏀 Basketball</button>
+      <button           data-v="football"    onclick="setSport('football',this)">🏈 Football</button>
+      <button           data-v="hockey"      onclick="setSport('hockey',this)">🏒 Hockey</button>
+      <button           data-v="soccer"      onclick="setSport('soccer',this)">⚽ Soccer</button>
+    </div>
+
+    <button class="btn-past" id="btn-past" onclick="togglePast()">Past Hidden</button>
+    <span class="count-label" id="count-lbl"></span>
+  </div>
+</header>
+
+<div class="alert">
+  ⚠ LICENSE SHIFT — Topps/Fanatics takes over NFL exclusive Apr 2026 · Topps now holds NBA exclusive (2025–26+) · Panini retains WNBA, NIL, some soccer
+</div>
+
+<div class="cal-wrap">
+  <div class="cal-card">
+    <table class="cal-table">
+      <thead>
+        <tr>
+          <th style="width:68px">Date</th>
+          <th class="hide-mob" style="width:86px">Prerelease</th>
+          <th style="width:90px">Game / Sport</th>
+          <th>Product</th>
+          <th class="hide-mob" style="width:120px">Type</th>
+          <th class="hide-mob" style="width:68px">Channel</th>
+          <th class="r" style="width:62px">Size</th>
+        </tr>
+      </thead>
+      <tbody id="cal-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <strong style="color:var(--text2)">SIZE</strong>
+  <span class="sz-leg"><span class="sz sz1">$</span> Collectors</span>
+  <span class="sz-leg"><span class="sz sz2">$$</span> Niche</span>
+  <span class="sz-leg"><span class="sz sz3">$$$</span> Mainline</span>
+  <span class="sz-leg"><span class="sz sz4">$$$$</span> Category Killer</span>
+  <span class="footer-note">PROJ = estimated date/release · Links search past confirmed releases</span>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────
+const TODAY = new Date();
+TODAY.setHours(0,0,0,0);
+const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+function d(s){ if(!s)return null; const p=new Date(s+'T00:00:00'); return isNaN(p)?null:p; }
+function fmt(dt,projOnly){ if(!dt)return '—'; if(projOnly) return MONTHS[dt.getMonth()]+' '+dt.getFullYear(); return MONTHS[dt.getMonth()]+' '+String(dt.getDate()).padStart(2,'0'); }
+function fmtS(dt){ if(!dt)return ''; return MONTHS[dt.getMonth()]+' '+dt.getDate(); }
+function isPast(dt){ return dt&&dt<TODAY; }
+function isSoon(dt){ if(!dt)return false; const diff=(dt-TODAY)/86400000; return diff>=0&&diff<=14; }
+function szCls(s){ return {'$':'sz1','$$':'sz2','$$$':'sz3','$$$$':'sz4'}[s]||'sz2'; }
+
+function flagH(item){
+  if(!item.flag)return '';
+  const cls={last:'flag-last',first:'flag-first',tentpole:'flag-tentpole'}[item.flag]||'';
+  return `<span class="flag ${cls}">${item.flagLabel}</span>`;
+}
+
+// Game label config
+const GAMES = {
+  pokemon:  { label:'Pokémon',    emoji:'⚡', fg:'var(--c-pokemon)',   bg:'var(--bg-pokemon)' },
+  magic:    { label:'Magic',      emoji:'🔮', fg:'var(--c-magic)',     bg:'var(--bg-magic)' },
+  lorcana:  { label:'Lorcana',    emoji:'✨', fg:'var(--c-lorcana)',   bg:'var(--bg-lorcana)' },
+  swu:      { label:'Star Wars',  emoji:'⚔️', fg:'var(--c-swu)',       bg:'var(--bg-swu)' },
+  fab:      { label:'F&B',        emoji:'🗡️', fg:'var(--c-fab)',       bg:'var(--bg-fab)' },
+  riftbound:{ label:'Riftbound',  emoji:'🌀', fg:'var(--c-riftbound)', bg:'var(--bg-riftbound)' },
+  yugioh:   { label:'Yu-Gi-Oh!',  emoji:'🃏', fg:'var(--c-yugioh)',   bg:'var(--bg-yugioh)' },
+  onepiece: { label:'One Piece',  emoji:'🏴‍☠️', fg:'var(--c-onepiece)',  bg:'var(--bg-onepiece)' },
+};
+const SPORTS = {
+  baseball:   { label:'Baseball',   emoji:'⚾', fg:'var(--c-baseball)',   bg:'var(--bg-baseball)' },
+  basketball: { label:'Basketball', emoji:'🏀', fg:'var(--c-basketball)', bg:'var(--bg-basketball)' },
+  football:   { label:'Football',   emoji:'🏈', fg:'var(--c-football)',   bg:'var(--bg-football)' },
+  hockey:     { label:'Hockey',     emoji:'🏒', fg:'var(--c-hockey)',     bg:'var(--bg-hockey)' },
+  soccer:     { label:'Soccer',     emoji:'⚽', fg:'var(--c-soccer)',     bg:'var(--bg-soccer)' },
+  multisport: { label:'Multi',      emoji:'🏅', fg:'var(--c-multisport)', bg:'var(--bg-multisport)' },
+  golf:       { label:'Golf',       emoji:'⛳', fg:'var(--c-golf)',       bg:'var(--bg-golf)' },
+  wnba:       { label:'WNBA',       emoji:'🏀', fg:'var(--c-wnba)',       bg:'var(--bg-wnba)' },
+};
+
+function labelPill(cfg){
+  return `<span class="glabel" style="color:${cfg.fg}"><span class="glabel-emoji">${cfg.emoji}</span><span class="glabel-text">${cfg.label}</span></span>`;
+}
+
+// ─────────────────────────────────────────────────────
+// TCG DATA
+// Fields: year, projected?, pre, date, game, gameName, product, size, type, estimated?, flag?, flagLabel?, url?
+// ─────────────────────────────────────────────────────
+const TCG_DATA = [
+// ── 2024 ──
+{year:2024,date:d('2024-01-26'),game:'pokemon', gameName:'Pokémon TCG',          product:'Paldean Fates',               size:'$$$', type:'Main Set'},
+{year:2024,date:d('2024-02-23'),game:'lorcana', gameName:'Disney Lorcana',        product:'Into the Inklands',           size:'$$',  type:'Main Set'},
+{year:2024,date:d('2024-03-08'),game:'swu',     gameName:'Star Wars: Unlimited',  product:'Spark of Rebellion',          size:'$$$', type:'Main Set'},
+{year:2024,pre:d('2024-03-01'),date:d('2024-03-08'),game:'magic',gameName:'Magic: The Gathering',product:'Fallout',size:'$$$',type:'Universes Beyond',url:'https://magic.wizards.com/en/products/fallout'},
+{year:2024,date:d('2024-03-22'),game:'pokemon', gameName:'Pokémon TCG',          product:'Temporal Forces',             size:'$$$', type:'Main Set'},
+{year:2024,pre:d('2024-04-12'),date:d('2024-04-19'),game:'magic',gameName:'Magic: The Gathering',product:'Outlaws of Thunder Junction',size:'$$$',type:'Main Set',url:'https://magic.wizards.com/en/products/outlaws-of-thunder-junction'},
+{year:2024,date:d('2024-05-17'),game:'lorcana', gameName:'Disney Lorcana',        product:"Ursula's Return",             size:'$$',  type:'Main Set'},
+{year:2024,date:d('2024-05-24'),game:'pokemon', gameName:'Pokémon TCG',          product:'Twilight Masquerade',         size:'$$$', type:'Main Set'},
+{year:2024,pre:d('2024-06-07'),date:d('2024-06-14'),game:'magic',gameName:'Magic: The Gathering',product:'Modern Horizons 3',size:'$$$$',type:'Main Set',flag:'tentpole',flagLabel:'TENTPOLE',url:'https://magic.wizards.com/en/products/modern-horizons-3'},
+{year:2024,date:d('2024-07-12'),game:'swu',     gameName:'Star Wars: Unlimited',  product:'Shadows of the Galaxy',       size:'$$$', type:'Main Set'},
+{year:2024,date:d('2024-08-02'),game:'pokemon', gameName:'Pokémon TCG',          product:'Shrouded Fable',              size:'$',   type:'Special Set'},
+{year:2024,date:d('2024-08-09'),game:'lorcana', gameName:'Disney Lorcana',        product:'Shimmering Skies',            size:'$$',  type:'Main Set'},
+{year:2024,date:d('2024-09-13'),game:'pokemon', gameName:'Pokémon TCG',          product:'Stellar Crown',               size:'$$$', type:'Main Set'},
+{year:2024,pre:d('2024-09-20'),date:d('2024-09-27'),game:'magic',gameName:'Magic: The Gathering',product:'Duskmourn: House of Horror',size:'$$$',type:'Main Set',url:'https://magic.wizards.com/en/products/duskmourn'},
+{year:2024,date:d('2024-11-08'),game:'swu',     gameName:'Star Wars: Unlimited',  product:'Twilight of the Republic',    size:'$$$', type:'Main Set'},
+{year:2024,date:d('2024-11-08'),game:'pokemon', gameName:'Pokémon TCG',          product:'Surging Sparks',              size:'$$$', type:'Main Set'},
+{year:2024,date:d('2024-11-15'),game:'lorcana', gameName:'Disney Lorcana',        product:'Azurite Sea',                 size:'$$',  type:'Main Set'},
+// ── 2025 ──
+{year:2025,date:d('2025-01-17'),game:'pokemon', gameName:'Pokémon TCG',          product:'Prismatic Evolutions',        size:'$$$$',type:'Main Set',flag:'tentpole',flagLabel:'MEGA'},
+{year:2025,pre:d('2025-02-07'),date:d('2025-02-14'),game:'magic',gameName:'Magic: The Gathering',product:'Aetherdrift',size:'$$$',type:'Main Set',url:'https://magic.wizards.com/en/products/aetherdrift'},
+{year:2025,date:d('2025-03-07'),game:'lorcana', gameName:'Disney Lorcana',        product:"Archazia's Island",           size:'$$',  type:'Main Set'},
+{year:2025,pre:d('2025-03-07'),date:d('2025-03-14'),game:'swu',gameName:'Star Wars: Unlimited',product:'Jump to Lightspeed',size:'$$$',type:'Main Set'},
+{year:2025,date:d('2025-03-28'),game:'pokemon', gameName:'Pokémon TCG',          product:'Journey Together',            size:'$$$', type:'Main Set'},
+{year:2025,pre:d('2025-04-04'),date:d('2025-04-11'),game:'magic',gameName:'Magic: The Gathering',product:'Tarkir: Dragonstorm',size:'$$$',type:'Main Set',url:'https://magic.wizards.com/en/products/tarkir-dragonstorm'},
+{year:2025,date:d('2025-05-30'),game:'pokemon', gameName:'Pokémon TCG',          product:'Destined Rivals',             size:'$$$', type:'Main Set'},
+{year:2025,date:d('2025-05-30'),game:'lorcana', gameName:'Disney Lorcana',        product:'Reign of Jafar',              size:'$$',  type:'Main Set'},
+{year:2025,pre:d('2025-06-13'),date:d('2025-06-20'),game:'magic',gameName:'Magic: The Gathering',product:'Final Fantasy',size:'$$$$',type:'Universes Beyond',flag:'tentpole',flagLabel:'TENTPOLE',url:'https://magic.wizards.com/en/products/final-fantasy'},
+{year:2025,pre:d('2025-07-04'),date:d('2025-07-11'),game:'swu',gameName:'Star Wars: Unlimited',product:'Legends of the Force',size:'$$$',type:'Main Set'},
+{year:2025,date:d('2025-07-18'),game:'pokemon', gameName:'Pokémon TCG',          product:'Black Bolt / White Flare',    size:'$',   type:'Special Set'},
+{year:2025,pre:d('2025-07-25'),date:d('2025-08-01'),game:'magic',gameName:'Magic: The Gathering',product:'Edge of Eternities',size:'$$$',type:'Main Set'},
+{year:2025,date:d('2025-08-29'),game:'lorcana', gameName:'Disney Lorcana',        product:'Fabled',                      size:'$$',  type:'Main Set'},
+{year:2025,pre:d('2025-09-19'),date:d('2025-09-26'),game:'magic',gameName:'Magic: The Gathering',product:"Marvel's Spider-Man",size:'$$$$',type:'Tentpole Crossover',flag:'tentpole',flagLabel:'TENTPOLE'},
+{year:2025,date:d('2025-09-26'),game:'pokemon', gameName:'Pokémon TCG',          product:'Mega Evolution',              size:'$$$', type:'Main Set'},
+{year:2025,pre:d('2025-10-31'),date:d('2025-11-07'),game:'swu',gameName:'Star Wars: Unlimited',product:'Secrets of Power',size:'$$$',type:'Main Set'},
+{year:2025,date:d('2025-11-14'),game:'lorcana', gameName:'Disney Lorcana',        product:'Whispers in the Well',        size:'$$',  type:'Main Set'},
+{year:2025,date:d('2025-11-14'),game:'pokemon', gameName:'Pokémon TCG',          product:'Phantasmal Flames',           size:'$$$', type:'Main Set'},
+{year:2025,pre:d('2025-11-14'),date:d('2025-11-21'),game:'magic',gameName:'Magic: The Gathering',product:'Avatar: The Last Airbender',size:'$$$$',type:'Universes Beyond',flag:'tentpole',flagLabel:'TENTPOLE'},
+// ── 2026 ──
+{year:2026,pre:d('2026-01-16'),date:d('2026-01-23'),game:'magic',gameName:'Magic: The Gathering',product:'Lorwyn Eclipsed',size:'$$$',type:'Main Set'},
+{year:2026,date:d('2026-01-23'),game:'yugioh',  gameName:'Yu-Gi-Oh! TCG',         product:'Rage of the Abyss (Structure Deck)',size:'$',type:'Structure Deck'},
+{year:2026,date:d('2026-01-30'),game:'pokemon', gameName:'Pokémon TCG',          product:'Mega Evolution: Ascended Heroes',size:'$$$$',type:'Main Set',flag:'tentpole',flagLabel:'MEGA'},
+{year:2026,date:d('2026-02-06'),game:'yugioh',  gameName:'Yu-Gi-Oh! TCG',         product:'Q1 Core Booster',             size:'$$$', type:'Core Set'},
+{year:2026,date:d('2026-02-13'),game:'fab',     gameName:'Flesh and Blood',       product:'Compendium of Rathe',         size:'$$$', type:'Main Set',url:'https://fabtcg.com'},
+{year:2026,date:d('2026-02-13'),game:'riftbound',gameName:'Riftbound',            product:'Spiritforged',                size:'$$',  type:'Main Set'},
+{year:2026,pre:d('2026-02-13'),date:d('2026-02-20'),game:'lorcana',gameName:'Disney Lorcana',product:'Winterspell',size:'$$',type:'Main Set'},
+{year:2026,date:d('2026-02-27'),game:'onepiece',gameName:'One Piece TCG',         product:'OP-12 Booster',               size:'$$',  type:'Booster Set'},
+{year:2026,pre:d('2026-02-27'),date:d('2026-03-06'),game:'magic',gameName:'Magic: The Gathering',product:'Teenage Mutant Ninja Turtles',size:'$$$',type:'Universes Beyond'},
+{year:2026,pre:d('2026-03-06'),date:d('2026-03-13'),game:'swu',gameName:'Star Wars: Unlimited',product:'Set 7: A Lawless Time',size:'$$$',type:'Main Set'},
+{year:2026,date:d('2026-03-27'),game:'pokemon', gameName:'Pokémon TCG',          product:'Mega Evolution: Perfect Order',size:'$$$',type:'Main Set'},
+{year:2026,pre:d('2026-04-17'),date:d('2026-04-24'),game:'magic',gameName:'Magic: The Gathering',product:'Secrets of Strixhaven',size:'$$$',type:'Main Set'},
+{year:2026,date:d('2026-05-01'),game:'yugioh',  gameName:'Yu-Gi-Oh! TCG',         product:'Q2 Core Booster',             size:'$$$', type:'Core Set'},
+{year:2026,date:d('2026-05-08'),game:'riftbound',gameName:'Riftbound',            product:'Unleashed',                   size:'$$',  type:'Main Set'},
+{year:2026,pre:d('2026-05-08'),date:d('2026-05-08'),game:'lorcana',gameName:'Disney Lorcana',product:'Wilds Unknown (LGS)',size:'$$$',type:'Main Set'},
+{year:2026,date:d('2026-05-15'),game:'lorcana', gameName:'Disney Lorcana',        product:'Wilds Unknown (Wide Release)',size:'$$$', type:'Main Set'},
+{year:2026,date:d('2026-05-15'),game:'fab',     gameName:'Flesh and Blood',       product:'Q2 Set (TBA)',                size:'$$',  type:'Main Set',estimated:true},
+{year:2026,date:d('2026-05-22'),game:'pokemon', gameName:'Pokémon TCG',          product:'Chaos Rising',                size:'$$$', type:'Main Set',estimated:true},
+{year:2026,date:d('2026-05-29'),game:'onepiece',gameName:'One Piece TCG',         product:'OP-13 Booster',               size:'$$',  type:'Booster Set'},
+{year:2026,pre:d('2026-06-19'),date:d('2026-06-26'),game:'magic',gameName:'Magic: The Gathering',product:'Marvel Super Heroes',size:'$$$$',type:'Tentpole Set',flag:'tentpole',flagLabel:'TENTPOLE'},
+{year:2026,date:d('2026-07-10'),game:'swu',     gameName:'Star Wars: Unlimited',  product:'Set 8: Ashes of the Empire',  size:'$$$', type:'Main Set'},
+{year:2026,date:d('2026-07-24'),game:'yugioh',  gameName:'Yu-Gi-Oh! TCG',         product:'Q3 Core Booster',             size:'$$$', type:'Core Set'},
+{year:2026,date:d('2026-07-31'),game:'riftbound',gameName:'Riftbound',            product:'Vendetta',                    size:'$$',  type:'Main Set'},
+{year:2026,date:d('2026-08-07'),game:'fab',     gameName:'Flesh and Blood',       product:'Q3 Set (TBA)',                size:'$$',  type:'Main Set',estimated:true},
+{year:2026,date:d('2026-08-14'),game:'yugioh',  gameName:'Yu-Gi-Oh! TCG',         product:'2026 Tin Wave 1',             size:'$$',  type:'Tin Release'},
+{year:2026,pre:d('2026-08-07'),date:d('2026-08-14'),game:'magic',gameName:'Magic: The Gathering',product:'The Hobbit',size:'$$$$',type:'Universes Beyond',flag:'tentpole',flagLabel:'TENTPOLE'},
+{year:2026,date:d('2026-08-21'),game:'lorcana', gameName:'Disney Lorcana',        product:'Attack of the Vine!',         size:'$$',  type:'Main Set',estimated:true},
+{year:2026,date:d('2026-08-28'),game:'onepiece',gameName:'One Piece TCG',         product:'OP-14 Booster',               size:'$$',  type:'Booster Set'},
+{year:2026,date:d('2026-09-18'),game:'swu',     gameName:'Star Wars: Unlimited',  product:'Icons',                       size:'$$',  type:'Entry Point Set',estimated:true},
+{year:2026,pre:d('2026-09-25'),date:d('2026-10-02'),game:'magic',gameName:'Magic: The Gathering',product:'Reality Fracture',size:'$$$',type:'Main Set'},
+{year:2026,date:d('2026-10-16'),game:'yugioh',  gameName:'Yu-Gi-Oh! TCG',         product:'Q4 Core Booster',             size:'$$$', type:'Core Set'},
+{year:2026,date:d('2026-10-23'),game:'riftbound',gameName:'Riftbound',            product:'Radiance',                    size:'$$',  type:'Main Set'},
+{year:2026,date:d('2026-11-13'),game:'swu',     gameName:'Star Wars: Unlimited',  product:'Set 9: Homeworlds',           size:'$$$', type:'Main Set'},
+{year:2026,pre:d('2026-11-13'),date:d('2026-11-20'),game:'magic',gameName:'Magic: The Gathering',product:'Star Trek',size:'$$$$',type:'Universes Beyond',flag:'tentpole',flagLabel:'TENTPOLE'},
+{year:2026,date:d('2026-11-20'),game:'lorcana', gameName:'Disney Lorcana',        product:'Coco Set',                    size:'$$',  type:'Main Set',estimated:true},
+{year:2026,date:d('2026-11-27'),game:'onepiece',gameName:'One Piece TCG',         product:'OP-15 Booster',               size:'$$',  type:'Booster Set'},
+// ── 2027 PROJECTED ──
+{year:2027,projected:true,date:d('2027-01-15'),game:'pokemon', gameName:'Pokémon TCG',         product:'Gen 10 Intro Set',              size:'$$$$',type:'Gen Launch',estimated:true},
+{year:2027,projected:true,date:d('2027-02-15'),game:'magic',   gameName:'Magic: The Gathering', product:'Standard Set',                  size:'$$$', type:'Main Set',estimated:true},
+{year:2027,projected:true,date:d('2027-02-15'),game:'lorcana', gameName:'Disney Lorcana',       product:'Set 14 (Unnamed)',              size:'$$',  type:'Main Set',estimated:true},
+{year:2027,projected:true,date:d('2027-03-15'),game:'swu',     gameName:'Star Wars: Unlimited', product:'Set 10 (Year 4 Launch)',         size:'$$$$',type:'Rotation Year',estimated:true},
+{year:2027,projected:true,date:d('2027-05-15'),game:'lorcana', gameName:'Disney Lorcana',       product:'Set 15 (Unnamed)',              size:'$$',  type:'Main Set',estimated:true},
+{year:2027,projected:true,date:d('2027-06-15'),game:'magic',   gameName:'Magic: The Gathering', product:'Universes Beyond: Tentpole IP', size:'$$$$',type:'Universes Beyond',estimated:true,flag:'tentpole',flagLabel:'TENTPOLE'},
+];
+
+// ─────────────────────────────────────────────────────
+// SPORTS DATA
+// Fields: year, projected?, date, sport, emoji, mfr, product, tier, channel, size, estimated?, flag?, flagLabel?, url?
+// ─────────────────────────────────────────────────────
+const SPORT_DATA = [
+// ── 2025 ──
+{year:2025,date:d('2025-01-29'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Series 1 Baseball',              tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-02-26'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Heritage Baseball',               tier:'Flagship',     channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-03-26'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2024 Topps Heritage High Number',            tier:'Flagship',     channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-03-28'),sport:'basketball',emoji:'🏀',mfr:'Panini',    product:'2024-25 Panini Origins Basketball',          tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-04-02'),sport:'baseball',  emoji:'⚾',mfr:'Panini',    product:'2024 Panini Select Baseball',                tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-04-05'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2025 UD National Hockey Card Day',           tier:'Flagship',     channel:'Both', size:'$'},
+{year:2025,date:d('2025-04-11'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2024 Donruss Optic Football',                tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-04-16'),sport:'basketball',emoji:'🏀',mfr:'Panini',    product:'2024-25 Donruss Optic Basketball',           tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-04-16'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2024 Panini Phoenix Football',               tier:'Premium',      channel:'Hobby',size:'$$$'},
+{year:2025,date:d('2025-04-23'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2024 Panini Select Football',                tier:'Premium',      channel:'Hobby',size:'$$$$'},
+{year:2025,date:d('2025-04-30'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Chrome Black Baseball',           tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-05-07'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2024 Panini Immaculate Football',            tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-05-07'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2024-25 O-Pee-Chee Platinum Hockey',        tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-05-14'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Bowman Baseball',                       tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-06-11'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Series 2 Baseball',               tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-06-18'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Tribute Baseball',                tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-06-25'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Tier One Baseball',               tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-07-23'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Chrome Baseball',                 tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-08-01'),sport:'basketball',emoji:'🏀',mfr:'Panini',    product:'2024-25 Panini Mosaic Basketball',           tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-08-06'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2024 Panini National Treasures Football',   tier:'Ultra-Premium',channel:'Hobby',size:'$$$'},
+{year:2025,date:d('2025-08-14'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2024-25 Topps Finest Basketball',            tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-08-15'),sport:'basketball',emoji:'🏀',mfr:'Panini',    product:'2024-25 Panini National Treasures Basketball',tier:'Ultra-Premium',channel:'Hobby',size:'$$$'},
+{year:2025,date:d('2025-08-20'),sport:'basketball',emoji:'🏀',mfr:'Panini',    product:'2024-25 Donruss Optic Basketball',           tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-08-20'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Panini Prizm Baseball',                 tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-08-27'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Origins Football',               tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-08-27'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Chrome Sapphire Baseball',        tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-09-12'),sport:'baseball',  emoji:'⚾',mfr:'Panini',    product:'2025 Panini Prizm Baseball',                 tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-09-17'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Donruss Football',                      tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-09-24'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Prizm Collegiate Draft Football', tier:'Premium',     channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-09-26'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Certified Football',             tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-10-01'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Bowman Chrome Baseball',                tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-10-08'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Black Football',                 tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-10-15'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Allen & Ginter Baseball',         tier:'Specialty',    channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-10-23'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2025-26 Topps Basketball (NBA Flagship)',    tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-10-29'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Prizm Football',                 tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-11-05'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2025-26 Upper Deck Series 1 Hockey',        tier:'Flagship',     channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-11-12'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Update Series Baseball',          tier:'Flagship',     channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-11-19'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Contenders Football',            tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-11-26'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2025-26 Topps Chrome Basketball',            tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2025,date:d('2025-12-03'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Mosaic Football',                tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-12-10'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Chrome Update Series Baseball',   tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2025,date:d('2025-12-17'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Select Football',                tier:'Premium',      channel:'Hobby',size:'$$$$',flag:'last',flagLabel:'LAST PANINI NFL'},
+{year:2025,date:d('2025-12-19'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Stadium Club Baseball',           tier:'Specialty',    channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-12-24'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Panini Flawless Baseball',              tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2025,date:d('2025-12-31'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2025-26 Upper Deck Series 2 Hockey',        tier:'Flagship',     channel:'Both', size:'$$$'},
+// ── 2026 ──
+{year:2026,date:d('2026-01-07'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Allen & Ginter X Baseball',      tier:'Specialty',    channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-01-14'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Bowman Draft Baseball',                 tier:'Premium',      channel:'Hobby',size:'$$$$'},
+{year:2026,date:d('2026-01-14'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Donruss Optic Football',                tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-01-22'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2025-26 Topps Chrome Basketball',            tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-01-30'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Select Football',                tier:'Premium',      channel:'Hobby',size:'$$$'},
+{year:2026,date:d('2026-02-06'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Museum Collection Baseball',      tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-02-09'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Bowmans Best Baseball',                 tier:'Premium',      channel:'Hobby',size:'$$$'},
+{year:2026,date:d('2026-02-11'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Topps Series 1 Baseball',               tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-02-12'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Pristine Baseball',               tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-02-18'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini National Treasures Football',   tier:'Ultra-Premium',channel:'Hobby',size:'$$$'},
+{year:2026,date:d('2026-02-18'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2025 Topps Stadium Club Baseball',           tier:'Specialty',    channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-02-27'),sport:'football',  emoji:'🏈',mfr:'Panini',    product:'2025 Panini Flawless Football',              tier:'Ultra-Premium',channel:'Hobby',size:'$$$',flag:'last',flagLabel:'LAST PANINI NFL PREMIUM'},
+{year:2026,date:d('2026-03-04'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2025-26 Upper Deck Series 2 Hockey',        tier:'Flagship',     channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-03-04'),sport:'basketball',emoji:'🏀',mfr:'Panini',    product:'2025 Panini Prizm WNBA Basketball',         tier:'Premium',      channel:'Both', size:'$$'},
+{year:2026,date:d('2026-03-11'),sport:'baseball',  emoji:'🏅',mfr:'Upper Deck',product:'2025 Upper Deck World of Sports Vol. 2',    tier:'Specialty',    channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-03-11'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2025-26 Upper Deck SPx Hockey',             tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-03-12'),sport:'soccer',    emoji:'⚽',mfr:'Panini',    product:'2025-26 Panini Donruss Road to FIFA World Cup',tier:'Premium',   channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-03-18'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2025-26 Upper Deck SP Game Used Hockey',    tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-03-18'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Topps Heritage Baseball',               tier:'Flagship',     channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-04-03'),sport:'soccer',    emoji:'⚽',mfr:'Panini',    product:'2025-26 Panini Noir Road to FIFA World Cup', tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-04-08'),sport:'basketball',emoji:'🏀',mfr:'Panini',    product:'2025-26 Donruss Basketball (Unlicensed)',    tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-04-15'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2026 Topps Football Series 1',              tier:'Flagship',     channel:'Both', size:'$$$$',flag:'first',flagLabel:'FIRST TOPPS NFL'},
+{year:2026,date:d('2026-05-06'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Bowman Baseball',                       tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-05-13'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2026 Bowman University Chrome Football',    tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-05-20'),sport:'soccer',    emoji:'⚽',mfr:'Panini',    product:'2025-26 Panini Prizm FIFA Soccer',          tier:'Premium',      channel:'Hobby',size:'$$$'},
+{year:2026,date:d('2026-05-27'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2025-26 Topps Finest Basketball',            tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-06-10'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Topps Series 2 Baseball',               tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-06-17'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2026 Topps Chrome Football',                 tier:'Premium',      channel:'Both', size:'$$$$',estimated:true},
+{year:2026,date:d('2026-06-23'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2025-26 Upper Deck Ultimate Collection Hockey',tier:'Ultra-Premium',channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-06-24'),sport:'soccer',    emoji:'⚽',mfr:'Topps',     product:'2026 Topps Chrome Premier League Soccer',   tier:'Premium',      channel:'Hobby',size:'$$$'},
+{year:2026,date:d('2026-07-01'),sport:'soccer',    emoji:'⚽',mfr:'Panini',    product:'2026 Panini FIFA World Cup Stickers',        tier:'Flagship',     channel:'Both', size:'$$$$',flag:'tentpole',flagLabel:'WORLD CUP'},
+{year:2026,date:d('2026-07-15'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Topps Chrome Baseball',                 tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-07-22'),sport:'soccer',    emoji:'⚽',mfr:'Panini',    product:'2026 Panini Prizm FIFA World Cup',           tier:'Premium',      channel:'Both', size:'$$$$',flag:'tentpole',flagLabel:'WORLD CUP'},
+{year:2026,date:d('2026-08-05'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2025 Topps National Treasures Football',    tier:'Ultra-Premium',channel:'Hobby',size:'$$$',estimated:true},
+{year:2026,date:d('2026-08-12'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2025-26 SP Authentic Hockey',               tier:'Premium',      channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-08-19'),sport:'baseball',  emoji:'⛳',mfr:'Upper Deck',product:'2026 Upper Deck Allure Golf',               tier:'Specialty',    channel:'Hobby',size:'$$'},
+{year:2026,date:d('2026-09-02'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Bowman Chrome Baseball',                tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-09-16'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2026 Topps Donruss Football',               tier:'Flagship',     channel:'Both', size:'$$$$',estimated:true},
+{year:2026,date:d('2026-10-07'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Topps Allen & Ginter Baseball',         tier:'Specialty',    channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-10-21'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2026-27 Topps Basketball',                  tier:'Flagship',     channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-10-28'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2026 Topps Prizm Football',                 tier:'Flagship',     channel:'Both', size:'$$$$',estimated:true},
+{year:2026,date:d('2026-11-04'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2026-27 Upper Deck Series 1 Hockey',        tier:'Flagship',     channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-11-11'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Topps Update Series Baseball',          tier:'Flagship',     channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-11-18'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2026-27 Topps Chrome Basketball',            tier:'Premium',      channel:'Both', size:'$$$$'},
+{year:2026,date:d('2026-12-02'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2026 Topps Contenders Football',             tier:'Premium',      channel:'Both', size:'$$$$',estimated:true},
+{year:2026,date:d('2026-12-09'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2026 Topps Chrome Update Series Baseball',   tier:'Premium',      channel:'Both', size:'$$$'},
+{year:2026,date:d('2026-12-16'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2026-27 Upper Deck Series 2 Hockey',        tier:'Flagship',     channel:'Both', size:'$$$'},
+// ── 2027 PROJECTED ──
+{year:2027,projected:true,date:d('2027-02-01'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2027 Topps Series 1 Baseball',        tier:'Flagship',channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-02-01'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2027 Topps Heritage Baseball',         tier:'Flagship',channel:'Both', size:'$$$', estimated:true},
+{year:2027,projected:true,date:d('2027-04-01'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2027 Topps Football Series 1',         tier:'Flagship',channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-05-01'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2027 Bowman Baseball',                 tier:'Flagship',channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-06-01'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2027 Topps Series 2 Baseball',         tier:'Flagship',channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-06-01'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2027 Topps Chrome Football',           tier:'Premium', channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-07-01'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2027 Topps Chrome Baseball',           tier:'Premium', channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-09-01'),sport:'football',  emoji:'🏈',mfr:'Topps',     product:'2027 Topps NFL Flagship TBD',          tier:'Flagship',channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-10-01'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2027-28 Topps Basketball',             tier:'Flagship',channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-11-01'),sport:'hockey',    emoji:'🏒',mfr:'Upper Deck',product:'2027-28 Upper Deck Series 1 Hockey',   tier:'Flagship',channel:'Both', size:'$$$', estimated:true},
+{year:2027,projected:true,date:d('2027-11-01'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2027 Topps Update Series Baseball',    tier:'Flagship',channel:'Both', size:'$$$', estimated:true},
+{year:2027,projected:true,date:d('2027-11-01'),sport:'basketball',emoji:'🏀',mfr:'Topps',     product:'2027-28 Topps Chrome Basketball',      tier:'Premium', channel:'Both', size:'$$$$',estimated:true},
+{year:2027,projected:true,date:d('2027-12-01'),sport:'baseball',  emoji:'⚾',mfr:'Topps',     product:'2027 Topps Chrome Update Baseball',    tier:'Premium', channel:'Both', size:'$$$', estimated:true},
+];
+
+// ─────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────
+let catF   = 'all';
+let gameF  = 'all';
+let sportF = 'all';
+let showPast = false;
+
+// ─────────────────────────────────────────────────────
+// BUILD + RENDER
+// ─────────────────────────────────────────────────────
+function buildRows(){
+  const rows = [];
+  if(catF !== 'sports'){
+    for(const r of TCG_DATA){
+      if(gameF !== 'all' && r.game !== gameF) continue;
+      rows.push({...r, _cat:'tcg'});
+    }
+  }
+  if(catF !== 'tcg'){
+    for(const r of SPORT_DATA){
+      if(sportF !== 'all' && r.sport !== sportF) continue;
+      rows.push({...r, _cat:'sports'});
+    }
+  }
+  rows.sort((a,b)=>{ if(!a.date&&!b.date)return 0; if(!a.date)return 1; if(!b.date)return -1; return a.date-b.date; });
+  return rows;
+}
+
+function render(){
+  const body = document.getElementById('cal-body');
+  const rows = buildRows();
+  let html = '';
+  let curYear = null;
+  let todayDone = false;
+  let count = 0;
+
+  for(const row of rows){
+    const past = isPast(row.date);
+    if(past && !showPast) continue;
+
+    // Year header
+    if(row.year !== curYear){
+      curYear = row.year;
+      const lbl = row.projected ? '── 2027  PROJECTED ──' : `── ${row.year} ──`;
+      html += `<tr class="yr-row${row.projected?' proj':''}"><td colspan="7">${lbl}</td></tr>`;
+    }
+
+    // Today marker
+    if(!todayDone && row.date && row.date >= TODAY){
+      todayDone = true;
+      html += `<tr class="today-row" id="today-anchor"><td colspan="7"><div class="today-bar">▶ TODAY — ${MONTHS[TODAY.getMonth()]} ${TODAY.getDate()}, ${TODAY.getFullYear()}</div></td></tr>`;
+    }
+
+    // Row classes
+    const cls = ['cal-row', past?'past':'', isSoon(row.date)?'soon':''].filter(Boolean).join(' ');
+
+    // Label pill
+    let pill = '';
+    if(row._cat === 'tcg'){
+      const g = GAMES[row.game];
+      pill = g ? labelPill(g) : `<span class="glabel">${row.game}</span>`;
+    } else {
+      const s = SPORTS[row.sport];
+      pill = s ? labelPill(s) : `<span class="glabel">${row.sport}</span>`;
+    }
+
+    // Pre / channel cell
+    let preCell = '';
+    if(row._cat === 'tcg'){
+      preCell = row.pre ? `<span class="pre-lbl">PRE</span>${fmtS(row.pre)}` : '';
+    } else {
+      preCell = '';
+    }
+
+    // Product name — link only for released (past) confirmed entries
+    const nameCls = row.estimated ? 'p-name est' : 'p-name';
+    const canLink = !row.estimated && !row.projected && isPast(row.date);
+    const estBadge = row.estimated ? ' <span class="est-badge">PROJ</span>' : '';
+    let nameInner;
+    if(canLink) {
+      const searchQ = encodeURIComponent(row.product);
+      const searchUrl = row._cat === 'tcg'
+        ? `https://www.tcgplayer.com/search/all/product?q=${searchQ}`
+        : `https://www.cardboardconnection.com/?s=${searchQ}`;
+      nameInner = `<a href="${searchUrl}" target="_blank" rel="noopener">${row.product}</a>`;
+    } else {
+      nameInner = row.product + estBadge;
+    }
+
+    // Sub-line
+    const subLine = row._cat === 'tcg'
+      ? row.gameName
+      : `${row.mfr} · ${row.tier}`;
+
+    // Type
+    const typeStr = row._cat === 'tcg' ? row.type : row.tier;
+
+    // Channel (only shown for TCG in this column; sports shows in pre column)
+    const chCell = row._cat === 'sports' ? '' : '';
+
+    const _cfg = row._cat === 'tcg' ? GAMES[row.game] : SPORTS[row.sport];
+    const rowColor = _cfg ? _cfg.fg : 'var(--accent)';
+    html += `<tr class="${cls}" style="--row-color:${rowColor}">
+  <td class="c-date${past?' dim':''}">${fmt(row.date,row.projected)}</td>
+  <td class="c-pre hide-mob">${preCell}</td>
+  <td class="c-label">${pill}</td>
+  <td class="c-product">
+    <span class="${nameCls}">${nameInner}${flagH(row)}</span>
+    <span class="p-sub">${subLine}</span>
+  </td>
+  <td class="c-type hide-mob"><span class="type-tag">${typeStr}</span></td>
+  <td class="c-ch hide-mob">${row._cat==='sports'?`<span class="ch-tag">${row.channel}</span>`:''}</td>
+  <td class="c-size"><span class="sz ${szCls(row.size)}">${row.size}</span></td>
+</tr>`;
+    count++;
+  }
+
+  body.innerHTML = html;
+  document.getElementById('count-lbl').textContent = count + ' releases';
+
+  // Dim inactive filter groups
+  const gf = document.getElementById('seg-game');
+  const sf = document.getElementById('seg-sport');
+  gf.style.opacity = catF === 'sports' ? '0.3' : '1';
+  gf.style.pointerEvents = catF === 'sports' ? 'none' : '';
+  sf.style.opacity = catF === 'tcg' ? '0.3' : '1';
+  sf.style.pointerEvents = catF === 'tcg' ? 'none' : '';
+}
+
+// ─────────────────────────────────────────────────────
+// CONTROLS
+// ─────────────────────────────────────────────────────
+function setCat(v,btn){
+  catF=v;
+  document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+}
+function setGame(v,btn){
+  gameF=v;
+  document.querySelectorAll('#seg-game button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  // selecting a specific game: auto-collapse sports; selecting All: restore both
+  if(v !== 'all'){
+    catF = 'tcg';
+    sportF = 'all';
+    document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-cat button[data-v="tcg"]').classList.add('on');
+    document.querySelectorAll('#seg-sport button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-sport button[data-v="all"]').classList.add('on');
+  } else if(catF === 'tcg'){
+    catF = 'all';
+    document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-cat button[data-v="all"]').classList.add('on');
+  }
+  render();
+}
+function setSport(v,btn){
+  sportF=v;
+  document.querySelectorAll('#seg-sport button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  // selecting a specific sport: auto-collapse TCG; selecting All: restore both
+  if(v !== 'all'){
+    catF = 'sports';
+    gameF = 'all';
+    document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-cat button[data-v="sports"]').classList.add('on');
+    document.querySelectorAll('#seg-game button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-game button[data-v="all"]').classList.add('on');
+  } else if(catF === 'sports'){
+    catF = 'all';
+    document.querySelectorAll('#seg-cat button').forEach(b=>b.classList.remove('on'));
+    document.querySelector('#seg-cat button[data-v="all"]').classList.add('on');
+  }
+  render();
+}
+function togglePast(){
+  showPast=!showPast;
+  const btn=document.getElementById('btn-past');
+  btn.classList.toggle('on',showPast);
+  btn.textContent = showPast ? 'Showing Past' : 'Past Hidden';
+  render();
+}
+function jumpToToday(){
+  const el=document.getElementById('today-anchor');
+  if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+render();
+</script>
+</body>
+</html>
